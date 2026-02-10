@@ -28,8 +28,9 @@ async function main() {
 
     const products = imageFiles.map((file, index) => {
       const id = file.replace(".jpg", "");
-      // Assign 1/3 as recommendation only
-      const isRecommendationOnly = (index % 3 === 0);
+      
+      // Make all items visible in the catalog for this demo.
+      const isRecommendationOnly = false;
       
       // Get category from metadata or default to apparel
       const category = metadata[id]?.category || (id.startsWith('e') ? 'eyewear' : 'apparel');

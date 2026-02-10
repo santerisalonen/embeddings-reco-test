@@ -1,0 +1,17 @@
+{
+  "category": "apparel",
+  "runId": "2026-02-10T07-31-47-907Z",
+  "baseProductId": "s1770668398586_0",
+  "baseImagePath": "public/products/images/synthetic/s1770668398586_0.jpg",
+  "experimentDir": "experiments/latent-mask/apparel/2026-02-10T07-31-47-907Z",
+  "variants": 2,
+  "prompts": [
+    "Change the clothing to business casual (blazer and trousers). Keep the same person, face, hair, pose, background, and lighting. Only change the clothing.",
+    "Change the clothing to minimalist casual (plain t-shirt and straight-leg pants). Keep everything else identical; only change the clothing."
+  ],
+  "variantImagePaths": [
+    "experiments/latent-mask/apparel/2026-02-10T07-31-47-907Z/variant_00.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-31-47-907Z/variant_01.jpg"
+  ],
+  "dryRun": true
+}

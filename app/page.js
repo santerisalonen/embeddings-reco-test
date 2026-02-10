@@ -30,12 +30,13 @@ export default function Home() {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [recommendationOnly, setRecommendationOnly] = useState(false);
+  const [useLatentMask, setUseLatentMask] = useState(false);
   const [category, setCategory] = useState('apparel');
 
   useEffect(() => {
     fetchProducts();
     fetchRecommendations();
-  }, [recommendationOnly, category]);
+  }, [recommendationOnly, useLatentMask, category]);
 
   const fetchProducts = async () => {
     setLoading(true);
@@ -46,7 +47,9 @@ export default function Home() {
   };
 
   const fetchRecommendations = async () => {
-    const res = await fetch(`/api/recommendations?recommendationOnly=${recommendationOnly}&category=${category}`);
+    const res = await fetch(
+      `/api/recommendations?recommendationOnly=${recommendationOnly}&useLatentMask=${useLatentMask}&category=${category}`
+    );
     const data = await res.json();
     if (Array.isArray(data)) {
       setRecommendations(data);
@@ -120,7 +123,7 @@ export default function Home() {
   return (
     <AppShell
       padding="md"
-      aside={{ width: 300, breakpoint: 'sm' }}
+      aside={{ width: 420, breakpoint: 'sm' }}
       styles={{
         main: { background: 'var(--mantine-color-gray-0)' }
       }}
@@ -182,22 +185,29 @@ export default function Home() {
               onChange={(event) => setRecommendationOnly(event.currentTarget.checked)}
               size="xs"
             />
+            <Switch
+              label="Style mask"
+              description="Emphasize product style dimensions in embeddings."
+              checked={useLatentMask}
+              onChange={(event) => setUseLatentMask(event.currentTarget.checked)}
+              size="xs"
+            />
           </Stack>
           <Divider mb="md" />
         </AppShell.Section>
 
         <AppShell.Section component={ScrollArea} grow>
           {recommendations.length > 0 && recommendations.some(r => r.score > 0) ? (
-            <Stack gap="md" align="center">
+            <SimpleGrid cols={2} spacing="sm" verticalSpacing="sm">
               {recommendations.map((product) => (
-                <ProductCard 
-                  key={`reco-${product.id}`} 
-                  product={product} 
+                <ProductCard
+                  key={`reco-${product.id}`}
+                  product={product}
                   showScore={true}
-                  cardWidth={240}
+                  cardWidth={180}
                 />
               ))}
-            </Stack>
+            </SimpleGrid>
           ) : (
             <Box py="xl" ta="center">
               <Text c="dimmed" fs="italic" size="sm">

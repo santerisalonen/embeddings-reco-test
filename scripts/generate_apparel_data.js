@@ -14,15 +14,33 @@ const replicate = new Replicate({
 const CATEGORIES = {
   photoStyle: ['Fashion editorial photo'],
   gender: ['female', 'male', 'non-binary'],
-  style: ['bohemian chic style', 'minimalist style', '90s retro style', 'business casual style', '70s boho style'],
-  color: ['sage green', 'charcoal grey', 'terracotta', 'electric blue', 'cream', 'mustard yellow', 'deep burgundy'],
-  productType: ['maxi dress', 'oversized t-shirt', 'tailored blazer', 'cargo pants', 'silk blouse', 'knit sweater'],
+  style: ['Bohemian Chic', 'Business Casual', '90s Retro'],
+  styleItems: {
+    'Bohemian Chic': [
+      'Free People peasant top',
+      'Crochet vest over tank top',
+      'Floral kimono',
+      'Tie-dye maxi dress'
+    ],
+    'Business Casual': [
+      'Navy blazer',
+      'White Oxford shirt',
+      'Cashmere crewneck sweater',
+      'Silk blouse'
+    ],
+    '90s Retro': [
+      'Red plaid flannel',
+      'Champion cropped hoodie',
+      'Nirvana baby tee',
+      'Oversized denim jacket'
+    ]
+  },
   modelDetail: ['short curly hair', 'long straight hair', 'slicked back hair', 'buzz cut', 'braided hair', 'tousled waves'],
   pose: ['walking pose', 'leaning against a wall', 'standing tall'],
-  background: ['neutral beige studio backdrop', 'urban city street', 'lush botanical garden', 'industrial concrete wall', 'minimalist interior'],
-  lighting: ['soft diffused lighting',  'natural window light'],
-    vibe: ['high-end fashion magazine style', 'raw and authentic vibe', 'vintage film aesthetic'],
-  presentation: ['Model', 'Flat-lay']
+  background: ['clean white studio backdrop'],
+  lighting: ['soft diffused lighting'],
+  vibe: ['high-end fashion magazine style', 'raw and authentic vibe', 'vintage film aesthetic'],
+  presentation: ['Model']
 };
 
 function getRandom(arr) {
@@ -30,32 +48,26 @@ function getRandom(arr) {
 }
 
 function generateCombination() {
+  const style = getRandom(CATEGORIES.style);
   const config = {
     photoStyle: getRandom(CATEGORIES.photoStyle),
-    style: getRandom(CATEGORIES.style),
-    color: getRandom(CATEGORIES.color),
-    productType: getRandom(CATEGORIES.productType),
+    style: style,
+    productType: getRandom(CATEGORIES.styleItems[style]),
     background: getRandom(CATEGORIES.background),
     lighting: getRandom(CATEGORIES.lighting),
     vibe: getRandom(CATEGORIES.vibe),
-    presentation: getRandom(CATEGORIES.presentation)
+    presentation: getRandom(CATEGORIES.presentation),
+    gender: getRandom(CATEGORIES.gender),
+    modelDetail: getRandom(CATEGORIES.modelDetail),
+    pose: getRandom(CATEGORIES.pose),
+    category: 'apparel'
   };
-
-  if (config.presentation === 'Model') {
-    config.gender = getRandom(CATEGORIES.gender);
-    config.modelDetail = getRandom(CATEGORIES.modelDetail);
-    config.pose = getRandom(CATEGORIES.pose);
-  }
 
   return config;
 }
 
 function assemblePrompt(config) {
-  if (config.presentation === 'Flat-lay') {
-    return `${config.photoStyle} of a ${config.style} ${config.color} ${config.productType} in a flat-lay arrangement, ${config.background}, ${config.lighting}, ${config.vibe}.`;
-  }
-
-  return `${config.photoStyle} of a ${config.gender} model in a ${config.style} ${config.color} ${config.productType}, ${config.modelDetail}, ${config.pose}, ${config.background}, ${config.lighting}, ${config.vibe}.`;
+  return `${config.photoStyle} of a ${config.gender} model wearing a ${config.productType} in ${config.style} style, ${config.modelDetail}, ${config.pose}, ${config.background}, ${config.lighting}, ${config.vibe}.`;
 }
 
 async function generateImage(prompt) {

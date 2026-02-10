@@ -1,0 +1,29 @@
+{
+  "category": "eyewear",
+  "runId": "2026-02-10T07-32-56-172Z",
+  "baseProductId": "e1770670971940_0",
+  "baseImagePath": "public/products/images/synthetic/e1770670971940_0.jpg",
+  "experimentDir": "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z",
+  "variants": 8,
+  "prompts": [
+    "Change the eyewear to bold oversized square eyeglasses frames in matte black. Keep the same person, face, hair, pose, background, and lighting. Only change the eyewear.",
+    "Change the eyewear to classic round panto eyeglasses frames in polished gold. Keep everything else identical; only change the eyewear.",
+    "Change the eyewear to modern cat-eye eyeglasses frames in deep navy blue. Keep the same identity and scene; only change the eyewear.",
+    "Change the eyewear to minimalist titanium wire eyeglasses frames in brushed silver. Keep everything else the same; only change the eyewear.",
+    "Change the eyewear to elegant acetate eyeglasses frames in crystal clear. Keep the same person and background; only change the eyewear.",
+    "Change the eyewear to bold oversized square eyeglasses frames in matte black. Keep the same person, face, hair, pose, background, and lighting. Only change the eyewear.",
+    "Change the eyewear to classic round panto eyeglasses frames in polished gold. Keep everything else identical; only change the eyewear.",
+    "Change the eyewear to modern cat-eye eyeglasses frames in deep navy blue. Keep the same identity and scene; only change the eyewear."
+  ],
+  "variantImagePaths": [
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_00.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_01.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_02.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_03.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_04.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_05.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_06.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-32-56-172Z/variant_07.jpg"
+  ],
+  "maskPath": "masks/eyewear_mask.json"
+}

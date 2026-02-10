@@ -13,38 +13,26 @@ const replicate = new Replicate({
 
 const CATEGORIES = {
   gender: ['female', 'male'],
-  eyewearType: ['eyeglasses', 'sunglasses'],
+  eyewearType: ['eyeglasses'],
   frameStyle: [
-    'elegant acetate frames', 
-    'minimalist titanium wire frames', 
-    'bold oversized square frames', 
-    'classic round panto frames', 
-    'modern cat-eye frames',
-    'vintage-inspired aviator frames'
+    'Minimalist Titanium', 
+    'Bold Acetate', 
+    'Classic Tortoiseshell'
   ],
-  frameColor: [
-    'tortoiseshell brown', 
-    'matte black', 
-    'polished gold', 
-    'crystal clear', 
-    'deep navy blue', 
-    'brushed silver',
-    'champagne translucent'
-  ],
-  lensColor: [
-    'dark grey tinted lenses',
-    'gradient brown lenses',
-    'mirrored silver lenses',
-    'bottle green tinted lenses',
-    'classic black lenses'
-  ],
+  styleDetails: {
+    'Minimalist Titanium': 'thin wire frames, subtle and professional, polished silver',
+    'Bold Acetate': 'thick statement frames, geek-chic aesthetic, matte black',
+    'Classic Tortoiseshell': 'traditional patterned frames, vintage-inspired panto shape, amber and brown tortoiseshell'
+  },
   modelDetail: [
     'soft natural makeup, hair pulled back', 
     'clean shaven, short groomed hair', 
     'minimalist aesthetic, natural skin texture', 
     'sophisticated look, hair in a neat bun',
     'modern professional look, short side-parted hair'
-  ]
+  ],
+  background: ['clean white studio backdrop'],
+  lighting: ['soft diffused lighting']
 };
 
 function getRandom(arr) {
@@ -52,28 +40,23 @@ function getRandom(arr) {
 }
 
 function generateCombination() {
-  const eyewearType = getRandom(CATEGORIES.eyewearType);
+  const frameStyle = getRandom(CATEGORIES.frameStyle);
   const config = {
     category: 'eyewear',
-    eyewearType: eyewearType,
+    eyewearType: 'eyeglasses',
     gender: getRandom(CATEGORIES.gender),
-    frameStyle: getRandom(CATEGORIES.frameStyle),
-    frameColor: getRandom(CATEGORIES.frameColor),
-    modelDetail: getRandom(CATEGORIES.modelDetail)
+    frameStyle: frameStyle,
+    styleDetail: CATEGORIES.styleDetails[frameStyle],
+    modelDetail: getRandom(CATEGORIES.modelDetail),
+    background: getRandom(CATEGORIES.background),
+    lighting: getRandom(CATEGORIES.lighting)
   };
-
-  if (eyewearType === 'sunglasses') {
-    config.lensColor = getRandom(CATEGORIES.lensColor);
-  }
 
   return config;
 }
 
 function assemblePrompt(config) {
-  const lensDetail = config.eyewearType === 'sunglasses' ? ` with ${config.lensColor}` : '';
-  const focusDetail = config.eyewearType === 'sunglasses' ? 'sunglasses' : 'glasses frames';
-  
-  return `Fashion editorial close-up portrait of a ${config.gender} model wearing ${config.frameStyle} ${config.eyewearType} in ${config.frameColor}${lensDetail}, looking directly at camera, ${config.modelDetail}, clean white studio backdrop, soft diffused lighting highlighting frame details, high-end eyewear campaign style, sharp focus on ${focusDetail}.`;
+  return `Fashion editorial close-up portrait of a ${config.gender} model wearing ${config.frameStyle} eyeglasses (${config.styleDetail}), looking directly at camera, ${config.modelDetail}, ${config.background}, ${config.lighting} highlighting frame details, high-end eyewear campaign style, sharp focus on glasses frames.`;
 }
 
 async function generateImage(prompt) {

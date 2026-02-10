@@ -1,0 +1,29 @@
+{
+  "category": "apparel",
+  "runId": "2026-02-10T07-35-47-078Z",
+  "baseProductId": "s1770668398586_0",
+  "baseImagePath": "public/products/images/synthetic/s1770668398586_0.jpg",
+  "experimentDir": "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z",
+  "variants": 8,
+  "prompts": [
+    "Change the clothing to business casual (blazer and trousers). Keep the same person, face, hair, pose, background, and lighting. Only change the clothing.",
+    "Change the clothing to minimalist casual (plain t-shirt and straight-leg pants). Keep everything else identical; only change the clothing.",
+    "Change the clothing to sporty athleisure (hoodie and joggers). Keep the same identity/background/lighting; only change the outfit.",
+    "Change the clothing to 90s retro streetwear (oversized denim jacket). Keep everything else the same; only change the clothing.",
+    "Change the clothing to bohemian chic (flowy patterned dress). Keep the same person and scene; only change the clothing.",
+    "Change the clothing to formal evening wear (tailored suit or elegant dress). Keep everything else identical; only change the clothing.",
+    "Change the clothing to business casual (blazer and trousers). Keep the same person, face, hair, pose, background, and lighting. Only change the clothing.",
+    "Change the clothing to minimalist casual (plain t-shirt and straight-leg pants). Keep everything else identical; only change the clothing."
+  ],
+  "variantImagePaths": [
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_00.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_01.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_02.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_03.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_04.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_05.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_06.jpg",
+    "experiments/latent-mask/apparel/2026-02-10T07-35-47-078Z/variant_07.jpg"
+  ],
+  "maskPath": "masks/apparel_mask.json"
+}

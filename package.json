@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "download:images": "node scripts/download_and_standardize_images.js",
+    "create:variance-mask": "node scripts/create_variance_mask.js",
     "generate:embeddings": "node scripts/generate_embeddings.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,0 +1,17 @@
+{
+  "category": "eyewear",
+  "runId": "2026-02-10T07-31-47-900Z",
+  "baseProductId": "e1770670971940_0",
+  "baseImagePath": "public/products/images/synthetic/e1770670971940_0.jpg",
+  "experimentDir": "experiments/latent-mask/eyewear/2026-02-10T07-31-47-900Z",
+  "variants": 2,
+  "prompts": [
+    "Change the eyewear to bold oversized square eyeglasses frames in matte black. Keep the same person, face, hair, pose, background, and lighting. Only change the eyewear.",
+    "Change the eyewear to classic round panto eyeglasses frames in polished gold. Keep everything else identical; only change the eyewear."
+  ],
+  "variantImagePaths": [
+    "experiments/latent-mask/eyewear/2026-02-10T07-31-47-900Z/variant_00.jpg",
+    "experiments/latent-mask/eyewear/2026-02-10T07-31-47-900Z/variant_01.jpg"
+  ],
+  "dryRun": true
+}

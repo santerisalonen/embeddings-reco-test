@@ -7,9 +7,10 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const recommendationOnly = searchParams.get('recommendationOnly') === 'true';
     const category = searchParams.get('category') || 'apparel';
+    const useLatentMask = searchParams.get('useLatentMask') === 'true';
     
     const events = await getEvents();
-    const recommendations = await getRecommendations(events, { recommendationOnly, category });
+    const recommendations = await getRecommendations(events, { recommendationOnly, category, useLatentMask });
     
     // Return top 6 recommendations
     return NextResponse.json(recommendations.slice(0, 6));
