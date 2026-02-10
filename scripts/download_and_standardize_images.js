@@ -1,30 +1,21 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
+import yaml from "js-yaml";
 
 const DEFAULT_WIDTH = 500;
 const DEFAULT_HEIGHT = 700;
 const DEFAULT_CONCURRENCY = 4;
 
 function toAbs(repoRoot, posixRelPath) {
-  // file_downloads.json uses posix-style paths; convert for current OS.
+  // paths are posix-style; convert for current OS.
   return path.join(repoRoot, ...String(posixRelPath).split("/"));
-}
-
-async function fileExists(p) {
-  try {
-    await fs.access(p);
-    return true;
-  } catch {
-    return false;
-  }
 }
 
 async function downloadToBuffer(url) {
   const res = await fetch(url, {
     redirect: "follow",
     headers: {
-      // Some CDNs behave better with a UA.
       "user-agent": "embedding-reco-test/1.0 (image downloader)"
     }
   });
@@ -36,7 +27,6 @@ async function downloadToBuffer(url) {
 }
 
 async function standardizeToJpg(buffer, width, height) {
-  // rotate() applies EXIF orientation if present
   return sharp(buffer)
     .rotate()
     .resize(width, height, {
@@ -66,30 +56,25 @@ async function runWithConcurrency(items, concurrency, worker) {
 
 async function main() {
   const repoRoot = process.cwd();
-  const manifestPath = path.join(repoRoot, "file_downloads.json");
+  const manifestPath = path.join(repoRoot, "scripts", "manifest.yaml");
   const raw = await fs.readFile(manifestPath, "utf8");
-  const manifest = JSON.parse(raw);
+  const manifest = yaml.load(raw);
 
-  const files = manifest;
-  if (!Array.isArray(files)) {
-    throw new Error("file_downloads.json must be a JSON array of { source_url, dest_path }");
+  if (!Array.isArray(manifest)) {
+    throw new Error("scripts/manifest.yaml must be a YAML array of { source_url, dest_path }");
   }
 
   const width = DEFAULT_WIDTH;
   const height = DEFAULT_HEIGHT;
-
-  const concurrency =
-    Number(process.env.DOWNLOAD_CONCURRENCY ?? DEFAULT_CONCURRENCY) ||
-    DEFAULT_CONCURRENCY;
+  const concurrency = Number(process.env.DOWNLOAD_CONCURRENCY ?? DEFAULT_CONCURRENCY) || DEFAULT_CONCURRENCY;
 
   const stats = {
-    total: files.length,
+    total: manifest.length,
     downloaded: 0,
-    skipped_existing: 0,
     failed: 0
   };
 
-  await runWithConcurrency(files, concurrency, async (f) => {
+  await runWithConcurrency(manifest, concurrency, async (f) => {
     const sourceUrl = String(f.source_url ?? "");
     const destPathPosix = String(f.dest_path ?? "");
     if (!sourceUrl || !destPathPosix) {
@@ -100,11 +85,6 @@ async function main() {
 
     const absDestPath = toAbs(repoRoot, destPathPosix);
     const absDestDir = path.dirname(absDestPath);
-
-    if (await fileExists(absDestPath)) {
-      stats.skipped_existing++;
-      return;
-    }
 
     try {
       await fs.mkdir(absDestDir, { recursive: true });
@@ -119,9 +99,7 @@ async function main() {
     }
   });
 
-  console.log(
-    `Done. total=${stats.total} downloaded=${stats.downloaded} skipped_existing=${stats.skipped_existing} failed=${stats.failed}`
-  );
+  console.log(`Done. total=${stats.total} downloaded=${stats.downloaded} failed=${stats.failed}`);
 }
 
-await main();
+main().catch(console.error);
